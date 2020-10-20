@@ -1,62 +1,30 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
+const prompts = require("./promptsList");
 
 // maybe include a default value if nothing is entered
-inquirer.prompt([
-    {
-        type: "input",
-        message: "Enter your github username: ",
-        name: "github"
-    },
-    {
-        type: "input",
-        message: "Enter your email address: ",
-        name: "email"
-    },
-    {
-        type: "input",
-        message: "What is the title of your README?",
-        name: "title"
-    },
-    {
-        type: "input",
-        message: "Give this readme a description: ",
-        name: "description"
-    },
-    {
-        type: "input",
-        message: "Include installation instructions for how users can install your app: ",
-        name: "installation"
-    },
-    {
-        type: "input",
-        message: "Include usage information for how users can use it: ",
-        name: "usage"
-    },
-    {
-        type: "list",
-        message: "Include the appropriate license for your repo: ",
-        name: "license",
-        choices: ["Apache 2.0", "GNU AGPL v3", "IBM Public License Version 1.0", "The MIT License", "Mozilla Public License 2.0"]
-    },
-    {
-        type: "input",
-        message: "Include contributing guidelines for other interested developers: ",
-        name: "contributing"
-    },
-    {
-        type: "input",
-        message: "Include test instructions: ",
-        name: "test"
-    }
-])
-.then(function(response) {
-    console.log(response);
+inquirer.prompt(prompts)
+.then(function(res) {
+    const title = generateTitle(res);
+    const answers = generateContent(res);
+    const markdown = title + '\n' + answers;
+
+    fs.appendFile("README2.md", markdown, (err) => {
+        if(err) throw err;
+        console.log("Your README file was created successfully!")
+    })
+    console.log(res);
 });
 
-//     if (response.confirm === response.password) {
-//       console.log("Success!");
-//     }
-//     else {
-//       console.log("You forgot your password already?!");
-//     }
-//   });
+function generateTitle(data){
+    return `# ${data.title} \n`;
+}
+
+function generateContent(data) {
+    const { github, email } = data;
+    const questionsHeader = "## Questions" + "\n";
+    const userInfo = "* Username: " + github + "\n" + "* Email: " + email;
+
+    return questionsHeader + userInfo;
+}
+
