@@ -11,17 +11,17 @@ const prompts = [
     },
     {
         type: "input",
-        message: "What is the title of your README?",
+        message: "Give your README a title: ",
         name: "title"
     },
     {
         type: "input",
-        message: "Give this readme a description: ",
+        message: "Give this README a description: ",
         name: "description"
     },
     {
         type: "input",
-        message: "Include installation instructions for how users can install your app: ",
+        message: "Include instructions for how users can install your app: ",
         name: "installation"
     },
     {
@@ -37,13 +37,13 @@ const prompts = [
     },
     {
         type: "input",
-        message: "Include contributing guidelines for other interested developers: ",
+        message: "Include guidelines for developer who are interested in making contributions: ",
         name: "contributing"
     },
     {
         type: "input",
         message: "Include test instructions: ",
-        name: "test"
+        name: "tests"
     }
 ];
 
