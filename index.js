@@ -7,9 +7,9 @@ inquirer.prompt(prompts)
 .then(function(res) {
     const title = generateTitle(res);
     const tableOfContents = generateTableOfContents();
-    const answers = generateSections(res);
+    const sections = generateSections(res);
     
-    const markdown = title + '\n' + tableOfContents + '\n' + answers;
+    const markdown = title + '\n' + tableOfContents + '\n' + sections;
 
     fs.appendFile("README2.md", markdown, (err) => {
         if(err) throw err;
@@ -35,10 +35,16 @@ function generateTableOfContents(){
 }
 
 function generateSections(data) {
-    const { github, email } = data;
-    const questionsHeader = `## Questions \n`;
-    const userInfo = "* Username: " + github + "\n" + "* Email: " + email;
+    const { installation, usage, license, contributing, tests, github, email } = data;
 
-    return questionsHeader + userInfo;
+    const installSect = `## Installation \n${installation} \n`;
+    const useSect = `\n## Usage \n${usage} \n`;
+    const licenseSect = `\n## License \n${license} \n`;
+    const contributeSect = `\n## Contributing \n${contributing} \n`;
+    const testsSect = `\n## Tests \n${tests} \n`;
+    const questionsSect = "\n## Questions \n" + "* Username: " + github + "\n" + "* Email: " + email;
+
+    return installSect + useSect + licenseSect + contributeSect + testsSect + questionsSect;
+
 }
 
