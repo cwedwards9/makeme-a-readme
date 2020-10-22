@@ -1,4 +1,4 @@
-const prompts = [
+const promptList = [
     {
         type: "input",
         message: "Enter your github username: ",
@@ -47,4 +47,4 @@ const prompts = [
     }
 ];
 
-module.exports = prompts;
+module.exports = promptList;
