@@ -1,52 +1,31 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const prompts = require("./promptsList");
+const promptList = require("./promptsList");
+const generateMarkdown = require("./utils/generateMarkdown");
 
-
-inquirer.prompt(prompts)
+// Use the prompt list from promptList.js to gather user input for readme file
+function init() {
+    inquirer.prompt(promptList)
     .then(function(res) {
-        const title = generateTitle(res);
-        const tableOfContents = generateTableOfContents();
-        const sections = generateSections(res);
-        
-        const markdown = `${title} \n${tableOfContents} \n${sections}`;
-
-        fs.appendFile("README2.md", markdown, (err) => {
-            if(err) throw err;
-            console.log("Your README file was created successfully!")
-        })
         console.log(res);
+        // Call function from utils/generateMarkdown.js to convert responses into a markdown format
+        const markdownResponses = generateMarkdown(res);
+
+        // Call writeToFile function to pass in string in markdown format
+        writeToFile(markdownResponses);
     });
-
-
-function generateTitle(data){
-    const { title, description } = data;
-    return `# ${title} \n${description} \n`;
 }
 
-function generateTableOfContents(){
-    const toc = [
-        "## Table of Contents",
-        "* [Installation](#Installation)",
-        "* [Usage](#Usage)",
-        "* [License](#License)",
-        "* [Contributing](#Contributing)",
-        "* [Tests](#Tests)",
-        "* [Questions](#Questions) \n"
-    ].join("\n");
-    return toc;
+// Takes in string and appends it to a readme file
+function writeToFile(markdown){
+    fs.appendFile("README2.md", markdown, (err) => {
+        if(err) throw err;
+        console.log("Your README file was created successfully!")
+    })
 }
 
-function generateSections(data) {
-    const { installation, usage, license, contributing, tests, github, email } = data;
+// Initialize the program to prompt the user
+init();
 
-    const sections = [
-        "## Installation \n" + installation,
-        "## Usage \n" + usage,
-        "## License \n" + license,
-        "## Contributing \n" + contributing,
-        "## Tests \n" + tests,
-        "## Questions \n" + "* Username: " + github + "\n*Email: " + email
-    ].join("\n\n");
-    return sections;
-}
+
+module.exports = generateMarkdown;
