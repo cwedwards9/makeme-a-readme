@@ -1,6 +1,11 @@
 const promptList = [
     {
         type: "input",
+        message: "Enter your first and last name: ",
+        name: "name"
+    },
+    {
+        type: "input",
         message: "Enter your github username: ",
         name: "github"
     },
