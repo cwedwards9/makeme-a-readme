@@ -18,7 +18,7 @@ function init() {
 
 // Takes in string and appends it to a readme file
 function writeToFile(markdown){
-    fs.appendFile("README2.md", markdown, (err) => {
+    fs.appendFile("README_DEMO.md", markdown, (err) => {
         if(err) throw err;
         console.log("Your README file was created successfully!")
     })
@@ -26,6 +26,3 @@ function writeToFile(markdown){
 
 // Initialize the program to prompt the user
 init();
-
-
-module.exports = generateMarkdown;
