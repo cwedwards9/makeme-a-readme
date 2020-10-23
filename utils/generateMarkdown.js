@@ -8,9 +8,12 @@ function generateMarkdown(responses){
 }
 
 // Takes in the responses from the user and gets the title and description and returns them
-function generateTitle(data){
-    const { title, description } = data;
-    return `# ${title} \n${description} \n`;
+function generateTitle(res){
+    const { title, description, license } = res;
+    const licenseNoSpace = license.replace(/ /g, "%20");
+    const badge = "[![License](https://img.shields.io/badge/license-" + licenseNoSpace + "-success.svg)](https://shields.io/)";
+
+    return `# ${title} \n${badge} \n\n## Description \n${description} \n`;
 }
 
 // Generates a table of contents part of the readme, with clickable links to take you to the respective section
@@ -22,22 +25,22 @@ function generateTOC(){
         "* [License](#License)",
         "* [Contributing](#Contributing)",
         "* [Tests](#Tests)",
-        "* [Questions](#Questions) \n"
+        "* [Contact](#Contact) \n"
     ].join("\n");
     return toc;
 }
 
 // Takes in user responses and gets the info for each main section and concatenates it with a heading
-function generateSections(data) {
-    const { installation, usage, license, contributing, tests, github, email } = data;
+function generateSections(res) {
+    const { installation, usage, name, license, contributing, tests, github, email } = res;
 
     const sections = [
         "## Installation \n" + installation,
         "## Usage \n" + usage,
-        "## License \n" + license,
+        "## License \n" + "Copyright (c) " + name + "\n" + "Licensed under the " + license + " license.",
         "## Contributing \n" + contributing,
         "## Tests \n" + tests,
-        "## Questions \n" + "* Username: " + github + "\n*Email: " + email
+        "## Contact \n" + "* GitHub: [" + github + "](https://github.com/" + github + ")" + "\n* Email: " + email
     ].join("\n\n");
     return sections;
 }
