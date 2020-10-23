@@ -10,6 +10,7 @@ function generateMarkdown(responses){
 // Takes in the responses from the user and gets the title and description and returns them
 function generateTitle(res){
     const { title, description, license } = res;
+    // Replace any spaces in the license name with %20 for the shield.io url
     const licenseNoSpace = license.replace(/ /g, "%20");
     const badge = "[![License](https://img.shields.io/badge/license-" + licenseNoSpace + "-success.svg)](https://shields.io/)";
 
@@ -20,12 +21,12 @@ function generateTitle(res){
 function generateTOC(){
     const toc = [
         "## Table of Contents",
-        "* [Installation](#Installation)",
-        "* [Usage](#Usage)",
-        "* [License](#License)",
-        "* [Contributing](#Contributing)",
-        "* [Tests](#Tests)",
-        "* [Contact](#Contact) \n"
+        "* [Installation](#installation)",
+        "* [Usage](#usage)",
+        "* [License](#license)",
+        "* [Contributing](#contributing)",
+        "* [Tests](#tests)",
+        "* [Contact](#contact) \n"
     ].join("\n");
     return toc;
 }
