@@ -26,7 +26,7 @@ function generateTOC(){
         "* [License](#license)",
         "* [Contributing](#contributing)",
         "* [Tests](#tests)",
-        "* [Contact](#contact) \n"
+        "* [Questions](#questions) \n"
     ].join("\n");
     return toc;
 }
@@ -38,10 +38,10 @@ function generateSections(res) {
     const sections = [
         "## Installation \n" + installation,
         "## Usage \n" + usage,
-        "## License \n" + "Copyright (c) " + name + "\n" + "Licensed under the " + license + " license.",
+        "## License \n" + "Copyright (c) " + name + "  \n" + "Licensed under the " + license + " license.",
         "## Contributing \n" + contributing,
         "## Tests \n" + tests,
-        "## Contact \n" + "* GitHub: [" + github + "](https://github.com/" + github + ")" + "\n* Email: " + email
+        "## Questions \n" + "* GitHub: [" + github + "](https://github.com/" + github + ")" + "\n* Email: " + email
     ].join("\n\n");
     return sections;
 }
